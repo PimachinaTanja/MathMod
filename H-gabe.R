@@ -43,10 +43,8 @@ vars = row.names(cor_tbl)[cor_tbl$co2_flux^2 > .1] %>% na.exclude
 vars
 formula = as.formula(paste("co2_flux~", paste(vars,collapse = "+"), sep = ""))
 formula                     
-mod1 = lm (co2_flux ~ h2o_mixing_ratio+air_molar_volume+Tdew+co2_flux+air_pressure+water_vapor_density+h2o_molar_density+air_density+e+h2o_mole_fraction+air_heat_capacity+specific_humidity, data=tbl)
+mod1 = lm (co2_flux ~ co2_flux+h2o_molar_density+h2o_molar_density+h2o_mixing_ratio+air_molar_volume+Tdew+air_pressure+water_vapor_density+air_density+e+air_heat_capacity+specific_humidity, data=tbl)
 summary(mod1)
-mod2 = lm(co2_flux~ h2o_mixing_ratio+water_vapor_density+h2o_molar_density+e+air_heat_capacity, data=tbl)
+mod2 = lm (co2_flux ~ (h2o_molar_density+water_vapor_density+e+air_heat_capacity)^2, data=tbl)
 summary(mod2)
-
-
 
