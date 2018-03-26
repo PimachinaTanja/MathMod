@@ -39,15 +39,14 @@ cor_tbl = cor(na.omit(tbl_numeric))
 cor_tbl
 cor_tbl = cor(na.omit(tbl_numeric)) %>% as.data.frame %>% select(co2_flux)
 cor_tbl
-vars = row.names(cor_tbl)[cor_tbl$co2_flux^2 > .7] %>% na.exclude
+vars = row.names(cor_tbl)[cor_tbl$co2_flux^2 > .1] %>% na.exclude
 vars
 formula = as.formula(paste("co2_flux~", paste(vars,collapse = "+"), sep = ""))
 formula                     
-mod1 = lm(co2_flux~Tau+H+LE+co2_flux+h2o_flux+H_strg+co2_v-adv+h2o_v-adv +co2_molar_density+co2_mole_fraction+co2_mixing_ratio+h2o_molar_density+h2o_mole_fraction+h2o_mixing_ratio+h2o_time_lag+sonic_temperatur+air_temperature+air_pressure+air_density+air_heat_capacity+air_molar_volume+water_vapor_density+e+es+specific_humidity+RH+VPD+Tdew+u_unrot+v_unrot+w_unrot+u_rot+v_rot+w_rot+wind_speed+max_speed+yaw+pitch+u*+TKE+L+(z-d)/L+bowen_ratio+x_peak+x_offset+x_10%+x_30%+x_50%+x_70%+x_90+un_Tau, data = tbl)
+mod1 = lm (co2_flux ~ h2o_mixing_ratio+air_molar_volume+Tdew+co2_flux+air_pressure+water_vapor_density+h2o_molar_density+air_density+e+h2o_mole_fraction+air_heat_capacity+specific_humidity, data=tbl)
 summary(mod1)
-mod2 = lm(co2_flux~H+co2_molar_density+co2_mole_fraction+co2_mixing_ratio+h2o_molar_density+air_density+u_unrot+v_unrot+w_unrot+yaw+pitch, data=tbl)
+mod2 = lm(co2_flux~ h2o_mixing_ratio+water_vapor_density+h2o_molar_density+e+air_heat_capacity, data=tbl)
 summary(mod2)
-mod3 = lm(co2_flux~H+co2_molar_density+co2_mole_fraction+co2_mixing_ratio+h2o_molar_density+air_density+w_unrot+yaw+pitch, data=tbl)
-summary(mod3)
-mod4 = lm(co2_flux~H+co2_molar_density+co2_mole_fraction+co2_mixing_ratio+h2o_molar_density+air_density+yaw+pitch, data=tbl)
-summary(mod4)
+
+
+
